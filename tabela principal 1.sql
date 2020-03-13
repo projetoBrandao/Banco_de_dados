@@ -18,7 +18,9 @@ create table Contato (
 	idContato int primary key auto_increment, -- CÓDIGO DO CLIENTE
 	telefoneFixo char (10), -- TELEFONE RESIDENCIAL CASO O CLIENTE QUEIRA
 	celularUm char (11) not null, -- 1° CELULAR OBRIGATÓRIO DO CLIENTE
-	celularDois char (11) -- 2° CELULAR CASO O CLIENTE TENHA
+	celularDois char (11), -- 2° CELULAR CASO O CLIENTE TENHA
+    emailUm varchar (100) not null, -- EMAIL DO CLIENTE
+    emailDois varchar (100) -- EMAIL SEGUNDÁRIO CASO O CLIENTE QUEIRA
  );
 
 create table Cliente( -- AQUI CRIAMOS A TABELA CLIENTE
@@ -27,19 +29,19 @@ create table Cliente( -- AQUI CRIAMOS A TABELA CLIENTE
     cpf char (11), -- CPF DO USUARIO, CASO FOR PESSOA FISICA
     cnpj char (14), -- CNPJ DO USUARIO, CASO FOR PESSOA JURIDICA
     rg varchar (20), --  RG DO USUARIO, CASO FOR PESSOA FISICA
-    email varchar (40) not null, -- EMAIL DO CLIENTE
 	idEndereco int, -- FOREIGN KEY 
 	idContato int, -- FOREIGN KEY
 	foreign key (idEndereco) references Endereco(idEndereco),
 	foreign key (idContato) references Contato(idContato)
 );
 
--- ISSO SÓ PODERÁ OCORRER QUANDO OCORRER A CONFIRMAÇÃO DO PAGAMENTO DO CLIENTE 
+-- ISSO SÓ PODERÁ OCORRER QUANDO OCORRER A CONFIRMAÇÃO DO PAGAMENTO DO CLIENTE E ASSIM A EMPRESA IRÁ FORNECER OS DADOS
 create table Usuario (
 	idLogin int primary key auto_increment, -- CODIGO DO USUARIO APÓS O CADASTRO
     login varchar(100) not null, -- LOGIN DO USUARIO APÓS O SISTEMA FORNECER SEU ACESSO
     senha varchar (100) not null, -- SENHA DO USUARIO APÓS O SISTEMA FORNECER SEU ACESSO
     idCliente int, -- FOREIGN KEY 
+	logado bit, -- CASO O SISTEMA CAIA 
     foreign key(idCliente) references Cliente(idCliente)
 );
 
